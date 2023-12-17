@@ -1,5 +1,3 @@
-package java.ForJUnitPrac.Shop;
-
 public class ShopTest {
 
     /*
