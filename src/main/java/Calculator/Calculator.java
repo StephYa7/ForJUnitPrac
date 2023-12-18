@@ -14,24 +14,23 @@ public class Calculator {
     }
 
     public static char getOperator() {
-        System.out.println("Введите операцию: ");
+        System.out.println("Введите операцию:");
         char operation = scanner.next().charAt(0);
         return operation;
     }
 
     public static int getOperand() {
-        System.out.println("Введите число: ");
+        System.out.println("Введите число:");
         int operand;
-
         if (scanner.hasNextInt()) {
             operand = scanner.nextInt();
         } else {
-            System.out.println("Вы допустили ошибку при вводе числа. Попробуйте еще раз.");
-            if (scanner.hasNextInt()) {
+            System.out.println("Вы допустили ошибку при вводе числа. Попробуйте еще раз");
+            if (scanner.hasNext()) {
                 scanner.next();
                 operand = getOperand();
             } else {
-                throw new IllegalStateException("Ошибка вводимых данных");
+                throw new IllegalStateException("Ошибка в вводимых данных");
             }
         }
         return operand;
