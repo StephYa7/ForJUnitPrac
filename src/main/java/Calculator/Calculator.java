@@ -84,4 +84,12 @@ public class Calculator {
         }
         return result;
     }
+
+    public static double computeAreaCircles(double radius) {
+        return Math.PI * Math.pow(radius, 2);
+    }
+
+    public static double computePerimeterCircles(double radius) {
+        return radius * 2 * Math.PI;
+    }
 }

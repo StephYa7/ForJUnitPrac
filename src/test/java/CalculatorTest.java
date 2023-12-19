@@ -39,12 +39,14 @@ public class CalculatorTest {
                 .isInstanceOf(ArithmeticException.class);
         assertThatThrownBy(() -> Calculator.calculatingDiscount(0, 10))
                 .isInstanceOf(ArithmeticException.class);
-    }    @Test
+    }
+
+    @Test
     void calculatingDiscountExpression() {
 
-        assertThat(Calculator.calculatingDiscount(500,1))
+        assertThat(Calculator.calculatingDiscount(500, 1))
                 .isEqualTo(495);
-        assertThat(Calculator.calculatingDiscount(111,45))
+        assertThat(Calculator.calculatingDiscount(111, 45))
                 .isEqualTo(61.05);
 
     }
@@ -81,5 +83,15 @@ public class CalculatorTest {
                 .isInstanceOf(IllegalStateException.class).describedAs("Ошибка в вводимых данных");
         System.setIn(inputStream);
         System.setOut(null);
+    }
+
+    @Test
+    void computeCircleRadiusWorksCorrectly() throws Exception {
+        assertThat(Calculator.computeAreaCircles(10)).isEqualTo(314.1592653589793);
+    }
+
+    @Test
+    void computeCirclePerimeterWorksCorrectly() throws Exception {
+        assertThat(Calculator.computePerimeterCircles(5)).isEqualTo(31.41592653589793);
     }
 }
