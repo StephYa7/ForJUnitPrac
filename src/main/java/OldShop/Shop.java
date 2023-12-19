@@ -2,6 +2,7 @@ package OldShop;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Shop {
@@ -22,4 +23,6 @@ public class Shop {
     public Product getMostExpensiveProduct() {
         return products.stream().max(Comparator.comparingInt(Product::getCost)).get();
     }
+
+
 }

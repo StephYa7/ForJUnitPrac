@@ -49,7 +49,7 @@ public class OldShopTest {
         Shop shop = test();
         List<Product> products = shop.getProducts();
         Product mostExpensive = products.stream().max(Comparator.comparingInt((Product::getCost))).get();
-        assertThat(shop.getMostExpensiveProduct()).isEqualTo(mostExpensive);
         assertThat(shop.getMostExpensiveProduct()).isEqualTo(new Product(8, "gqmjevj"));
+        assertThat(shop.getMostExpensiveProduct()).isEqualTo(mostExpensive);
     }
 }
