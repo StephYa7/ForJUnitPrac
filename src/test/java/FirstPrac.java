@@ -24,15 +24,10 @@ public class FirstPrac {
         System.out.println(sum(Integer.MAX_VALUE, Integer.MAX_VALUE));               // Задание №3
         happyNY();                                                                  // Задание №4
         checkingShoppingCart();                                                    // Задание №5
-//        int x = -2;
-//        assert x > 0 : "x is negative";
-        expectedValue();                                                        // Задание №6
-
+        expectedValue();                                                          // Задание №6
         String[] colors = {"aqua", "yellow", "blue", "orange", "green", "violet", "gold"};
-        testingJavaCollectionsAssertJ(colors);                               // Задание №7
-        checkingHero();                                                     // Задание №8
-
-
+        testingJavaCollectionsAssertJ(colors);                                  // Задание №7
+        checkingHero();                                                        // Задание №8
     }
 
 
@@ -58,7 +53,7 @@ public class FirstPrac {
         Calendar calendar = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String currentDateTime = dateFormat.format(calendar.getTime());
-//        assert currentDateTime.equals("01/01/2024 00:00:00") : "Еще 2023 год :(";
+        assert currentDateTime.equals("01/01/2024 00:00:00") : "Еще 2023 год :(";
         System.out.println("С новым годом!");
     }
 
@@ -86,7 +81,7 @@ public class FirstPrac {
     }
 
     public static void expectedValue() { // Задание №6
-        assertThat(5).isEqualTo(sum(2, 3));
+        assertThat(sum(2, 3)).isEqualTo(5);
     }
 
     public static void testingJavaCollectionsAssertJ(String[] colors) { // Задание №7
@@ -113,8 +108,6 @@ public class FirstPrac {
                 .hasSize(3)
                 .contains("Bow", "Axe", "Gold");
         assert true == emmett.isHuman();
-
-
     }
 
     @Data

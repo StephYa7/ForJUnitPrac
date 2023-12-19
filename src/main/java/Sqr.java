@@ -13,12 +13,8 @@ public class Sqr {
     }
 
     public static void zeroDev(int number) {
-
         if (number == 0) {
             throw new ArithmeticException();
         }
-
     }
-
-
 }

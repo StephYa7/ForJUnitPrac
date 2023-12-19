@@ -1,6 +1,5 @@
 import Calculator.Calculator;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -8,7 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class CalculatorTest {
@@ -40,6 +39,14 @@ public class CalculatorTest {
                 .isInstanceOf(ArithmeticException.class);
         assertThatThrownBy(() -> Calculator.calculatingDiscount(0, 10))
                 .isInstanceOf(ArithmeticException.class);
+    }    @Test
+    void calculatingDiscountExpression() {
+
+        assertThat(Calculator.calculatingDiscount(500,1))
+                .isEqualTo(495);
+        assertThat(Calculator.calculatingDiscount(111,45))
+                .isEqualTo(61.05);
+
     }
 
     @Test
@@ -50,6 +57,7 @@ public class CalculatorTest {
         assertThat(Calculator.exponentiate(5251, 1)).isEqualTo(5251);
         assertThat(Calculator.exponentiate(5251, 0)).isEqualTo(1);
     }
+
     @Test
     void getOperandCompletesCorrectlyWithNumbers() {
         String testedValue = "9";
@@ -63,7 +71,7 @@ public class CalculatorTest {
 
     @Test
     void getOperandCompletesCorrectlyWithNotNumbers() {
-        String testedValue = "k";
+        String testedValue = "в";
         ByteArrayInputStream in = new ByteArrayInputStream(testedValue.getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         InputStream inputStream = System.in;
