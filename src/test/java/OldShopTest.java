@@ -1,8 +1,9 @@
-import Calculator.Calculator;
-import Shop.Shop;
-import Shop.Product;
+import OldShop.Shop;
+import OldShop.Product;
 import org.junit.jupiter.api.Test;
+import NewShop.Cart;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,7 +11,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ShopTest {
+public class OldShopTest {
 
 
     Shop test() {
