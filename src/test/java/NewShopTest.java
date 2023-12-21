@@ -1,11 +1,19 @@
+import Calculator.Calculator;
 import NewShop.Cart;
 import NewShop.Product;
 import NewShop.Shop;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class NewShopTest {
 
@@ -14,8 +22,10 @@ class NewShopTest {
         List<Product> products = new ArrayList<>();
 
         // Три массива Названия, Цены, Кол-во
-        String[] productNames = {"bacon", "beef", "ham", "salmon", "carrot", "potato", "onion", "apple", "melon", "rice", "eggs", "yogurt"};
-        Double[] productPrice = {170.00d, 250.00d, 200.00d, 150.00d, 15.00d, 30.00d, 20.00d, 59.00d, 88.00d, 100.00d, 80.00d, 55.00d};
+        String[] productNames = {"bacon", "beef", "ham", "salmon", "carrot"
+                , "potato", "onion", "apple", "melon", "rice", "eggs", "yogurt"};
+        Double[] productPrice = {170.00d, 250.00d, 200.00d, 150.00d, 15.00d
+                , 30.00d, 20.00d, 59.00d, 88.00d, 100.00d, 80.00d, 55.00d};
         Integer[] stock = {10, 10, 10, 10, 10, 10, 10, 70, 13, 30, 40, 60};
 
         // Последовательно наполняем список продуктами
@@ -31,15 +41,14 @@ class NewShopTest {
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-    // private Shop shop;
-    // private Cart cart;
-    //  @BeforeEach
-    //  void setup() {
-    //      shop = new Shop(getStoreItems());
-    //      cart = new Cart(shop);
-    //  }
+    private Shop shop;
+    private Cart cart;
 
-
+    @BeforeEach
+    void setup() {
+        shop = new Shop(getStoreItems());
+        cart = new Cart(shop);
+    }
 /*
             ID | Название  | Цена, р. | Кол-во в магазине, шт.
             1  | bacon     | 170.0    | 10
@@ -56,101 +65,71 @@ class NewShopTest {
             12 | yogurt    | 55.0     | 60
 */
 
-    /**
-     * 2.1. Разработайте модульный тест для проверки, что общая стоимость
-     * корзины с разными товарами корректно рассчитывается
-     * <br><b>Ожидаемый результат:</b>
-     * Стоимость корзины посчиталась корректно
-     */
     @Test
     void priceCartIsCorrectCalculated() {
-        // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
-        // Act (Выполнение)
-        cart.addProductToCartByID(1); // 170 +
-        //..
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(3);
+        assertThat(cart.getTotalPrice()).isEqualTo(250 + 200);
     }
 
-    /**
-     * 2.2. Создайте модульный тест для проверки, что общая стоимость
-     * корзины с множественными экземплярами одного и того же продукта корректно рассчитывается.
-     * <br><b>Ожидаемый результат:</b>
-     * Стоимость корзины посчиталась корректно
-     */
-    @Test
-    void priceCartProductsSameTypeIsCorrectCalculated() {
-        // Arrange
-
-        // Act
-
-        // Assert
-
-    }
-
-    /**
-     * 2.3. Напишите модульный тест для проверки, что при удалении
-     * товара из корзины происходит перерасчет общей стоимости корзины.
-     * <br><b>Ожидаемый результат:</b>
-     * Вызывается метод пересчета стоимости корзины, стоимость корзины меняется
-     */
     @Test
     void whenChangingCartCostRecalculationIsCalled() {
+        cart.addProductToCartByID(1);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(3);
+        cart.addProductToCartByID(4);
+        cart.addProductToCartByID(5);
+        cart.removeProductByID(5);
+        assertThat(cart.getTotalPrice()).isEqualTo(770);
 
     }
-
-    /**
-     * 2.4. Разработайте модульный тест для проверки, что при добавлении определенного количества товара в корзину,
-     * общее количество этого товара в магазине соответствующим образом уменьшается.
-     * <br><b>Ожидаемый результат:</b>
-     * Количество товара в магазине уменьшается на число продуктов в корзине пользователя
-     */
 
     void quantityProductsStoreChanging() {
-
+        cart.addProductToCartByID(1);
+        cart.addProductToCartByID(1);
+        cart.addProductToCartByID(1);
+        assertThat(shop.getProductsShop().get(0).getQuantity()).isEqualTo(7);
     }
 
-    /**
-     * 2.5. Создайте модульный тест для проверки, что если пользователь забирает все имеющиеся продукты о
-     * пределенного типа из магазина, эти продукты больше не доступны для заказа.
-     * <br><b>Ожидаемый результат:</b>
-     * Больше такой продукт заказать нельзя, он не появляется на полке
-     */
-
+    @Test
     void lastProductsDisappearFromStore() {
+        for (int i = 0; i < 10; i++) {
+            cart.addProductToCartByID(1);
+        }
+        System.setOut(new PrintStream(output));
+        cart.addProductToCartByID(1);
+        assertThat(output.toString().trim()).isEqualTo("Этого товара нет в наличии");
+
 
     }
 
-    /**
-     * 2.6. Напишите модульный тест для проверки, что при удалении товара из корзины,
-     * общее количество этого товара в магазине соответствующим образом увеличивается.
-     * <br><b>Ожидаемый результат:</b>
-     * Количество продуктов этого типа на складе увеличивается на число удаленных из корзины продуктов
-     */
+    @Test
     void deletedProductIsReturnedToShop() {
+        int before = shop.getProductsShop().get(2).getQuantity();
+        for (int i = 0; i < 3; i++) {
+            cart.addProductToCartByID(3);
+        }
+        for (int i = 0; i < 2; i++) {
+            cart.removeProductByID(3);
+        }
+        int after = shop.getProductsShop().get(2).getQuantity();
+        assertThat(before - after).isEqualTo(1);
+
 
     }
 
-    /**
-     * 2.7. Разработайте параметризованный модульный тест для проверки,
-     * что при вводе неверного идентификатора товара генерируется исключение RuntimeException.
-     * <br><b>Ожидаемый результат:</b>
-     * Исключение типа RuntimeException и сообщение Не найден продукт с id
-     * *Сделать тест параметризованным
-     */
-    //@Test
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 14})
     void incorrectProductSelectionCausesException(int i) {
-
+        assertThatThrownBy(() -> cart.addProductToCartByID(i)).isInstanceOf(RuntimeException.class);
     }
 
-    /**
-     * 2.8.      * 2.8. Создайте модульный тест для проверки, что при попытке удалить из корзины больше товаров,
-     * чем там есть, генерируется исключение RuntimeException.удаляет продукты до того, как их добавить)
-     * <br><b>Ожидаемый результат:</b> Исключение типа NoSuchFieldError и сообщение "В корзине не найден продукт с id"
-     */
     @Test
     void incorrectProductRemoveCausesException() {
+        cart.addProductToCartByID(1);
+        cart.removeProductByID(1);
 
+        assertThatThrownBy(() -> cart.removeProductByID(1)).isInstanceOf(RuntimeException.class);
     }
 
     /**
@@ -166,19 +145,7 @@ class NewShopTest {
     //          Shop shop = new Shop(getStoreItems());
     //          Cart cart = new Cart(shop);
     //      }
-
     @Test
     void testSUM() {
-
     }
-
-    /**
-     * 2.10. Нужно оптимизировать тестовый метод, согласно следующим условиям:
-     * <br> 1. Отображаемое имя - "Advanced test for calculating TotalPrice"
-     * <br> 2. Тест повторяется 10 раз
-     * <br> 3. Установлен таймаут на выполнение теста 70 Миллисекунд (unit = TimeUnit.MILLISECONDS)
-     * <br> 4. После проверки работоспособности теста, его нужно выключить
-     */
-
-    // ...
 }
