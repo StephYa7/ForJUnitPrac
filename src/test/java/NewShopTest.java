@@ -1,9 +1,7 @@
-import Calculator.Calculator;
 import NewShop.Cart;
 import NewShop.Product;
 import NewShop.Shop;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -11,31 +9,24 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class NewShopTest {
-
-    // Создаем набор продуктов для магазина:
     public static List<Product> getStoreItems() {
         List<Product> products = new ArrayList<>();
 
-        // Три массива Названия, Цены, Кол-во
         String[] productNames = {"bacon", "beef", "ham", "salmon", "carrot"
                 , "potato", "onion", "apple", "melon", "rice", "eggs", "yogurt"};
         Double[] productPrice = {170.00d, 250.00d, 200.00d, 150.00d, 15.00d
                 , 30.00d, 20.00d, 59.00d, 88.00d, 100.00d, 80.00d, 55.00d};
         Integer[] stock = {10, 10, 10, 10, 10, 10, 10, 70, 13, 30, 40, 60};
 
-        // Последовательно наполняем список продуктами
         for (int i = 0; i < productNames.length; i++) {
             products.add(new Product(i + 1, productNames[i], productPrice[i], stock[i]));
         }
-
-        // тоже самое
-        // Product product = new Product(1,"bacon", 170.00d, 10);
-        // products.add(product);
         return products;
     }
 
@@ -114,8 +105,6 @@ class NewShopTest {
         }
         int after = shop.getProductsShop().get(2).getQuantity();
         assertThat(before - after).isEqualTo(1);
-
-
     }
 
     @ParameterizedTest
@@ -126,26 +115,16 @@ class NewShopTest {
 
     @Test
     void incorrectProductRemoveCausesException() {
-        cart.addProductToCartByID(1);
-        cart.removeProductByID(1);
-
         assertThatThrownBy(() -> cart.removeProductByID(1)).isInstanceOf(RuntimeException.class);
     }
 
-    /**
-     * 2.9. Нужно восстановить тест
-     */
-    // boolean Сломанный-Тест() {
-    //          // Assert (Проверка утверждения)
-    //          assertThat(cart.getTotalPrice()).isEqualTo(cart.getTotalPrice());
-    //          // Act (Выполнение)
-    //          cart.addProductToCartByID(2); // 250
-    //          cart.addProductToCartByID(2); // 250
-    //          // Arrange (Подготовка)
-    //          Shop shop = new Shop(getStoreItems());
-    //          Cart cart = new Cart(shop);
-    //      }
-    @Test
-    void testSUM() {
+    @Disabled
+    @RepeatedTest(10)
+    @DisplayName("Advanced test for calculating TotalPrice")
+    @Timeout(value = 70, unit = TimeUnit.MILLISECONDS)
+    void advancedTestForCalculatingTotalPrice() {
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        assertThat(cart.getTotalPrice()).isEqualTo(500);
     }
 }
