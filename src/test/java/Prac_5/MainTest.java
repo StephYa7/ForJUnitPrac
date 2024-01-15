@@ -2,14 +2,15 @@ package Prac_5;
 
 import Prac_5.number.MaxNumberModule;
 import Prac_5.number.RandomNumberModule;
+import Prac_5.user.UserRepository;
+import Prac_5.user.UserService;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -18,7 +19,9 @@ public class MainTest {
     @Test
     public void testRandomListReturnLength() {
         List<Integer> test = RandomNumberModule.getRandomList(7);
+
         assertEquals(7, test.size());
+        assertThat(test).hasSize(1).isNotEmpty();
     }
 
     @ParameterizedTest
@@ -31,8 +34,9 @@ public class MainTest {
 
     @Test
     public void testGetMaxNumberReturnMaxNumber() {
-        List<Integer> testList = List.of(-5, 10, 101);
+        List<Integer> testList = new ArrayList<>(Arrays.asList(-5, 10, 101));
         int resultTest = MaxNumberModule.getMaxNumber(testList);
+
         assertEquals(101, resultTest);
     }
 
@@ -47,10 +51,19 @@ public class MainTest {
     public void testGetMaxNumberFromRandomListReturnNumber() {
         List<Integer> testList = RandomNumberModule.getRandomList(5);
         int result = MaxNumberModule.getMaxNumber(testList);
-        assertEquals(testList.stream().max(Comparator.comparingInt(o -> o)).get(), result);
+
+        assertEquals(Collections.max(testList), result);
     }
 
-    //5.2.
+    @ParameterizedTest
+    @ValueSource(ints = {2, 5})
+    void integrationUserTest(int i) {
+        UserRepository userRepository = new UserRepository();
+        UserService userService = new UserService(userRepository);
 
-    //5.3.
+        String res = userService.getUserName(i);
+
+        assertThat(res).isEqualTo("User " + i);
+    }
+
 }

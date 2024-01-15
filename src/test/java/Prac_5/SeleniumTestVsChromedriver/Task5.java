@@ -9,12 +9,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Task5 {
-    public static String chromedriver =
-            "D:\\PR\\Java\\ForJUnitPrac\\src\\test\\java\\Prac_5\\SeleniumTestVsChromedriver\\chromedriver.exe";
 
     @Test
-    public void testRunChromeAndSearchGB() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", chromedriver);
+    public void testRunChromeAndSearchGB() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
 

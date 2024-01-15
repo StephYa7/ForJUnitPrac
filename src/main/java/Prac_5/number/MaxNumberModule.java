@@ -7,8 +7,11 @@ import java.util.List;
 public class MaxNumberModule {
 
     public static int getMaxNumber(List<Integer> inputList) {
-        if (inputList.size() < 1) throw new IllegalArgumentException();
-        return inputList.stream().max(Comparator.comparingInt(o -> o)).get();
+        if (inputList.size() < 1 || inputList == null) throw new IllegalArgumentException();
+        int max = inputList.get(0);
+        for (int i = 1; i < inputList.size(); i++) {
+            if (max < inputList.get(i)) max = inputList.get(i);
+        }
+        return max;
     }
 }
-//      return RandomNumberModule.getRandomList(length).stream().max(Comparator.comparingInt(o->o)).get();
