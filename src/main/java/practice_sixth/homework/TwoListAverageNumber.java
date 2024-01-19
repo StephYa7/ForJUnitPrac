@@ -57,4 +57,5 @@ public class TwoListAverageNumber {
         }
         return result;
     }
+
 }

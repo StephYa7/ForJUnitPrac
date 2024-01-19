@@ -3,12 +3,14 @@ package practice_sixth.homework;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTwoListAverageNumber {
     List<Integer> firstList;
@@ -67,5 +69,15 @@ public class TestTwoListAverageNumber {
                 loadArraysFromFile("src/main/java/practice_sixth/homework/Arrays1.txt");
 
         assertEquals(22, testList.get(0));
+    }
+
+    @Test
+    public void testConstructorThrowException() throws ClassNotFoundException {
+        Class<?> testClass = Class.forName("practice_sixth.homework.TwoListAverageNumber");
+        Constructor[] constructors = testClass.getDeclaredConstructors();
+        Constructor testConstructor = constructors[0];
+        testConstructor.setAccessible(true);
+
+        assertThrows(InvocationTargetException.class, () -> testConstructor.newInstance());
     }
 }
