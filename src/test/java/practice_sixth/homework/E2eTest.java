@@ -1,9 +1,15 @@
 package practice_sixth.homework;
 
+import org.junit.Test;
+
 import java.util.List;
 
-public class App {
-    public static void main(String[] args) {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class E2eTest {
+    @Test
+    public void testFullApp() {
+
         String firstFile = "src/main/java/practice_sixth/homework/Arrays1.txt";
         String secondFile = "src/main/java/practice_sixth/homework/Arrays2.txt";
 
@@ -12,7 +18,7 @@ public class App {
 
         int comparison = TwoListAverageNumber.compareTwoAverageNumbersFromList(firstList, secondList);
 
-        System.out.println(TwoListAverageNumber.sayWhichOneIsBigger(comparison));
-
+        String result = TwoListAverageNumber.sayWhichOneIsBigger(comparison);
+        assertEquals("Average number from first list is bigger",result);
     }
 }

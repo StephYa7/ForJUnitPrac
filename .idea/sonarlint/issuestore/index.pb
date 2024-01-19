@@ -101,3 +101,25 @@ N
 src/test/java/VehicleTest.java,7\f\7f11074a49143a46f2874fffbaf5af67e9d728c4
 L
 src/test/java/FirstPrac.java,0\a\0a408f41ca5152b08cf254cf7f965fcc0187123c
+R
+"src/test/java/Prac_4/MainTest.java,d\9\d91cdf8d856354645a85ac3d2e2db3921da0c97c
+e
+5src/test/java/Prac_4/weather/WeatherReporterTest.java,6\1\613177af06a1ec7f148d89df15c4ff77547f0bd5
+i
+9src/test/java/Prac_4/message/NotificationServiceTest.java,a\5\a53498d8a59cda9bf0b62d2abfd7f2cd8d3d3b7d
+e
+5src/main/java/Prac_4/book/InMemoryBookRepository.java,1\b\1be757d6882e5e91a4fb1f7274c1b2dc08bed004
+Z
+*src/main/java/Prac_4/book/BookService.java,3\c\3c7851c6623c18752fcd7a407cfcc65f97272fdc
+S
+#src/main/java/Prac_4/book/Book.java,e\d\ed47fab71c57226045fda804685ee7b1b0c7f1a5
+a
+1src/main/java/practice_sixth/homework/Arrays1.txt,c\0\c0942827b7d49e6e11cc2ad674ed0284b21d6af2
+a
+1src/main/java/practice_sixth/homework/Arrays2.txt,f\9\f9deb7a26a35748c7ede59d0b775eb815bb1952f
+l
+<src/test/java/practice_sixth/homework/TestNumbersLoader.java,6\5\65c6121204981b33c61897a8837531e0aa36fb2b
+j
+:src/test/java/practice_sixth/homework/IntegrationTest.java,0\8\0827022d6cd7470e0be40b236d76fa27895897e5
+b
+2src/test/java/practice_sixth/homework/E2eTest.java,1\c\1c18952d94c26e14d5e089878cf5906e83b1caee

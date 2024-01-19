@@ -34,14 +34,38 @@ public class TestTwoListAverageNumber {
         List<Integer> test = null;
         assertThatThrownBy(() -> TwoListAverageNumber
                 .getAverageNumber(test))
-                .isInstanceOf(IllegalStateException.class)
-                .describedAs("List is empty");
+                .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
     public void testCompareTwoAverageNumberList() {
-        assertEquals(1, TwoListAverageNumber.compareTwoAverageNumbersFromList(firstList,secondList));
-        assertEquals(-1, TwoListAverageNumber.compareTwoAverageNumbersFromList(secondList,firstList));
-        assertEquals(0, TwoListAverageNumber.compareTwoAverageNumbersFromList(firstList,firstList));
+        assertEquals(1, TwoListAverageNumber.compareTwoAverageNumbersFromList(firstList, secondList));
+        assertEquals(-1, TwoListAverageNumber.compareTwoAverageNumbersFromList(secondList, firstList));
+        assertEquals(0, TwoListAverageNumber.compareTwoAverageNumbersFromList(firstList, firstList));
+    }
+
+    @Test
+    public void testFromSayWhichOneIsBiggerReturnString() {
+        assertEquals("Average number from first list is bigger"
+                , TwoListAverageNumber.sayWhichOneIsBigger(1));
+        assertEquals("Average number from second list is bigger"
+                , TwoListAverageNumber.sayWhichOneIsBigger(-1));
+        assertEquals("The average numbers are the same"
+                , TwoListAverageNumber.sayWhichOneIsBigger(0));
+    }
+
+    @Test
+    public void testFromSayWhichOneIsBiggerReturnException() {
+        assertThatThrownBy(() -> TwoListAverageNumber
+                .sayWhichOneIsBigger(2))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testLoadArraysFromFile() {
+        List<Integer> testList = TwoListAverageNumber.
+                loadArraysFromFile("src/main/java/practice_sixth/homework/Arrays1.txt");
+
+        assertEquals(22, testList.get(0));
     }
 }

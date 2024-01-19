@@ -1,5 +1,8 @@
 package practice_sixth.homework;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TwoListAverageNumber {
@@ -29,19 +32,29 @@ public class TwoListAverageNumber {
         return 0;
     }
 
-    public static void sayWhichOneIsBigger(int comparison) {
+    public static String sayWhichOneIsBigger(int comparison) {
         switch (comparison) {
             case 1:
-                System.out.println("Average number from first list is bigger");
-                break;
+                return "Average number from first list is bigger";
             case -1:
-                System.out.println("Average number from first list is bigger");
-                break;
+                return "Average number from second list is bigger";
             case 0:
-                System.out.println("The average numbers are the same");
-                break;
+                return "The average numbers are the same";
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    public static List<Integer> loadArraysFromFile(String fileName) {
+        List<Integer> result = new ArrayList<>();
+        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+        ) {
+            String input = buffer.readLine();
+            String[] arrayStringNumbers = input.trim().split(" ");
+            Arrays.stream(arrayStringNumbers).forEach(o -> result.add(Integer.valueOf(o)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
